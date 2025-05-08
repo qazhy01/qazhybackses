@@ -1,0 +1,48 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+    {% if form.instance.pk %}
+        Редактирование поста
+    {% else %}
+        Создание поста
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title mb-4">
+                            {% if form.instance.pk %}
+                                Редактирование поста
+                            {% else %}
+                                Создание поста
+                            {% endif %}
+                        </h2>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="id_title" class="form-label">Заголовок:</label>
+                                <input type="text" class="form-control" id="id_title" name="title" value="{{ form.title.value|default:'' }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="id_content" class="form-label">Содержание:</label>
+                                <textarea class="form-control" id="id_content" name="content" rows="10" required>{{ form.content.value|default:'' }}</textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                {% if form.instance.pk %}
+                                    Сохранить изменения
+                                {% else %}
+                                    Создать пост
+                                {% endif %}
+                            </button>
+                            <a href="{% url 'blog:post_list' %}" class="btn btn-secondary">Отмена</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %} 

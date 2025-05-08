@@ -1,0 +1,34 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Мои посты{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Мои посты</h1>
+    
+    <a href="{% url 'blog:post_create' %}" class="btn btn-primary mb-4">Создать новый пост</a>
+
+    <div class="row">
+        {% for post in posts %}
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ post.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            {{ post.created_at|date:"d.m.Y H:i" }}
+                        </h6>
+                        <p class="card-text">{{ post.content|truncatewords:30 }}</p>
+                        <div class="btn-group">
+                            <a href="{% url 'blog:post_detail' post.pk %}" class="btn btn-info">Подробнее</a>
+                            <a href="{% url 'blog:post_edit' post.pk %}" class="btn btn-warning">Редактировать</a>
+                            <a href="{% url 'blog:post_delete' post.pk %}" class="btn btn-danger">Удалить</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <p>У вас пока нет постов.</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %} 

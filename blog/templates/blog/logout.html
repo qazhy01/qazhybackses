@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Выход из системы{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title mb-4">Выход из системы</h1>
+            <p class="card-text">Вы уверены, что хотите выйти из системы?</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Выйти</button>
+                <a href="{% url 'blog:post_list' %}" class="btn btn-secondary">Отмена</a>
+            </form>
+        </div>
+    </div>
+{% endblock %} 
